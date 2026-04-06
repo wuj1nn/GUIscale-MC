@@ -10,13 +10,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(VideoOptionsScreen.class)
 public class MixinVideoOptionsScreen {
 
-    /**
-     * After the video options screen finishes building its widget list,
-     * inject our fractional GUI scale slider just above the Done button.
-     *
-     * The Done button is placed at (height - 27). We place the slider at
-     * (height - 52) so there's a 5-pixel gap above Done.
-     */
     @Inject(method = "init", at = @At("TAIL"))
     private void advancedUiScale_addSlider(CallbackInfo ci) {
         VideoOptionsScreen self = (VideoOptionsScreen) (Object) this;
@@ -28,6 +21,6 @@ public class MixinVideoOptionsScreen {
         FractionalScaleSliderWidget slider = new FractionalScaleSliderWidget(
                 x, y, sliderWidth, sliderHeight
         );
-        self.addDrawableChild(slider);
+        ((ScreenInvoker)(Object)self).invokeAddDrawableChild(slider);
     }
 }

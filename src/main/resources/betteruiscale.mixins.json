@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_21",
   "client": [
     "MixinVideoOptionsScreen",
-    "MixinWindow"
+    "MixinWindow",
+    "ScreenInvoker"
   ],
   "injectors": {
     "defaultRequire": 1
