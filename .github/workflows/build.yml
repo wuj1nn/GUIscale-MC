@@ -19,7 +19,7 @@ jobs:
           YARN=$(curl -sf "https://meta.fabricmc.net/v2/versions/yarn/$MC" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d[0]['version'] if d else 'NOTFOUND')")
           LOADER=$(curl -sf "https://meta.fabricmc.net/v2/versions/loader" | python3 -c "import sys,json; d=json.load(sys.stdin); stable=[x for x in d if x.get('stable')]; print(stable[0]['version'] if stable else d[0]['version'])")
           FABRIC_API=$(curl -sf "https://api.modrinth.com/v2/project/P7dR8mSH/version?game_versions=%5B%221.21.11%22%5D&loaders=%5B%22fabric%22%5D" | python3 -c "import sys,json; v=json.load(sys.stdin); r=[x for x in v if x.get('version_type')=='release']; print((r or v)[0]['version_number'])")
-          LOOM=$(curl -sf "https://maven.fabricmc.net/net/fabricmc/fabric-loom/maven-metadata.xml" | python3 -c "import sys,re; d=sys.stdin.read(); m=re.search(r'<latest>([^<]+)</latest>',d); print(m.group(1) if m else '1.10-SNAPSHOT')")
+          LOOM=$(curl -sf "https://maven.fabricmc.net/net/fabricmc/fabric-loom/maven-metadata.xml" | python3 -c "import sys,re; d=sys.stdin.read(); m=re.search(r'<release>([^<]+)</release>',d); print(m.group(1) if m else '1.10')")
           echo "yarn=$YARN loader=$LOADER fabric=$FABRIC_API loom=$LOOM"
           sed -i "s|^yarn_mappings=.*|yarn_mappings=$YARN|" gradle.properties
           sed -i "s|^loader_version=.*|loader_version=$LOADER|" gradle.properties
@@ -28,7 +28,7 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '9.4'
+          gradle-version: '8.12'
 
       - name: Build mod
         run: gradle build --no-daemon
