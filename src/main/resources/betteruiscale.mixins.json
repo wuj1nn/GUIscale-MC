@@ -3,6 +3,7 @@
   "minVersion": "0.8",
   "package": "net.rosemods.betteruiscale.mixin",
   "compatibilityLevel": "JAVA_21",
+  "refmap": "betteruiscale.refmap.json",
   "client": [
     "MixinVideoOptionsScreen",
     "MixinWindow",
