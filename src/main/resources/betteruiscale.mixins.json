@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.rosemods.betteruiscale.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "MixinVideoOptionsScreen",
+    "MixinWindow"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
